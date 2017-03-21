@@ -5,7 +5,10 @@ using System.Text;
 
 namespace Assets.Items
 {
-    // Marker Interface for droppable items or souls
+    /// <summary>
+    /// Marker Interface for droppable items or souls
+    /// Both, items and souls implement this interface
+    /// </summary>
     public interface IDropable
     {
     }

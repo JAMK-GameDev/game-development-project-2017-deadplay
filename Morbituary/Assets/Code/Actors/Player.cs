@@ -1,12 +1,10 @@
-﻿using System.Collections;
+﻿using Assets.Items;
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace Assets.Actors
 {
-    public class Player : Actor
+    public class Player : Actor<Weapon>
     {
-
         // Use this for initialization
         void Start()
         {

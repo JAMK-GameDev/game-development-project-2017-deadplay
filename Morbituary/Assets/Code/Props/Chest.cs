@@ -5,7 +5,10 @@ using System.Text;
 
 namespace Assets.Code.Props
 {
-    class Chest
+    /// <summary>
+    /// A prop that can be opened with a key to spawn an item
+    /// </summary>
+    public class Chest
     {
     }
 }
