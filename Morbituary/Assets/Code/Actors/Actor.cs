@@ -1,5 +1,4 @@
-﻿using Assets.Actors.Enemies;
-using Assets.Actors.Enums;
+﻿using Assets.Code.Actors.Enemies;
 using Assets.Code.Actors.Enums;
 using Assets.Code.Combat;
 using System;
@@ -8,7 +7,7 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 
-namespace Assets.Actors
+namespace Assets.Code.Actors
 {
     /// <summary>
     /// Base actor class for the most fundamental functions, including movement and attack.

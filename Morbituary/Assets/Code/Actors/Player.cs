@@ -1,7 +1,7 @@
-﻿using Assets.Items;
+﻿using Assets.Code.Items;
 using System.Collections.Generic;
 
-namespace Assets.Actors
+namespace Assets.Code.Actors
 {
     public class Player : Actor<Weapon>
     {

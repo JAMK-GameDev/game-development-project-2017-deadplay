@@ -3,9 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Assets.Actors;
+using Assets.Code.Actors;
 
-namespace Assets.Items
+namespace Assets.Code.Items
 {
     /// <summary>
     /// Carryable weapons which are used bz players to deal damage

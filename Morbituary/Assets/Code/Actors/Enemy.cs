@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Assets.Actors
+namespace Assets.Code.Actors
 {
     class Enemy : Actor<IAttack>
     // Use this for initialization

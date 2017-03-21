@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Assets.Items
+namespace Assets.Code.Items
 {
     /// <summary>
     /// Marker Interface for droppable items or souls

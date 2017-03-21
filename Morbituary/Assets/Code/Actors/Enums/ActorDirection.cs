@@ -10,6 +10,9 @@ namespace Assets.Code.Actors.Enums
         Up, Down, Left, Right
     }
 
+    /// <summary>
+    /// Helper class for Actor Direction
+    /// </summary>
     public static class ActorDirectionMethods
     {
         public const double UP_DEGREES = 0;
@@ -18,12 +21,12 @@ namespace Assets.Code.Actors.Enums
         public const double LEFT_DEGREES = 270;
 
         /// <summary>
-        //  Perform check, so only ever valid values are assigned as facing degrees. 
+        //  Perform check, so only ever valid values are assigned as facing degrees.
         /// The value must be between 0 and 360
         /// </summary>
         /// <param name="direction"></param>
         /// <param name="value"></param>
-        /// <returns></returns>
+        /// <returns>true if this is a valid value for a degree</returns>
         public static bool IsValidDegree(this ActorDirection direction, double value)
         {
             return (value >= 0 && value <= 360);
@@ -66,19 +69,19 @@ namespace Assets.Code.Actors.Enums
 
         public static double UpDegrees(this ActorDirection direction)
         {
-            return 0;
+            return UP_DEGREES;
         }
         public static double RightDegrees(this ActorDirection direction)
         {
-            return 90;
+            return RIGHT_DEGREES;
         }
         public static double DownDegrees(this ActorDirection direction)
         {
-            return 180;
+            return DOWN_DEGREES;
         }
         public static double LeftDegrees(this ActorDirection direction)
         {
-            return 270;
+            return LEFT_DEGREES;
         }
     }
 }

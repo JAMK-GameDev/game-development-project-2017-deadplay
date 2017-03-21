@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Assets.Items
+namespace Assets.Code.Items
 {
     /// <summary>
     /// Interface for all items that can be carried in the inventory of the player
