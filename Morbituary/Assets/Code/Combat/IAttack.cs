@@ -17,13 +17,13 @@ namespace Assets.Code.Combat
         /// Deal damage to an actor
         /// </summary>
         /// <param name="target"></param>
-        void DealDamage(Actor target);
+        //void DealDamage(Actor target);
         
         /// <summary>
         /// Checks whether the desired target is in attacking range
         /// </summary>
         /// <param name="target"></param>
         /// <returns></returns>
-        bool IsInRange(Actor target);
+        //bool IsInRange(Actor target);
     }
 }
