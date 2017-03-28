@@ -1,4 +1,5 @@
-﻿using Assets.Code.Combat;
+﻿using Assets.Code.Actors.Enums;
+using Assets.Code.Combat;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,10 +22,15 @@ namespace Assets.Code.Actors
 
 		}
 
+        protected override void OnDeath()
+        {
+            Status = ActorStatus.Dead;
+            Debug.Log(this + " is now dead");
+        }
+
 		public static Enemy ToEnemy(GameObject gameObject)
 		{
 			return gameObject.GetComponentInParent<Enemy>();
 		}
-
-	}
+    }
 }
