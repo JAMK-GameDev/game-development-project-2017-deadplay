@@ -25,43 +25,24 @@ namespace Assets.Code.Items
 			Collider.size = new Vector3(Range, 2.0f, Range);
 			Collider.center = new Vector3(Range / 2, 0, 0);
 			var player = Player.GetPlayer();
-
 		}
-
-		public virtual void Attack(bool isInRange, Actor<IAttack> target)
-		{
-			Debug.Log("Attack() here");
-			Debug.Log("is in range: " + isInRange);
-			Debug.Log("target is: " + target);
-			// If in range
-			if (isInRange)
-			{
-				Debug.Log("Attack() in range, deling damage");
-				// Do damage
-				DealDamage(Damage, target);
-			}
-		}
-
-		public void DealDamage(int amount, Actor<IAttack> target)
-		{
-			if (target == null) throw new ArgumentNullException();
-
-			Debug.Log("DealDamage() here, amount, target: ");
-			Debug.Log(amount);
-			Debug.Log(target);
-			target.Health -= amount;
-
-		}
-
 
 		public void DealDamage(Actor<IAttack> target)
 		{
-			throw new NotImplementedException();
-		}
+			if (target == null) throw new ArgumentNullException();
 
+			Debug.Log("DealDamage() here, target is: " + target);
+            Debug.Log("Range is: " + Range);
+            Debug.Log("Dmg is: " + Damage);
+            // dealing the damage of the weapon itself
+            target.receiveDamage(this);
+        }
+        
 		public bool IsInRange(Actor<IAttack> target)
 		{
-			throw new NotImplementedException();
+            if (target)
+                return true;
+            return false;
 		}
 
 	}

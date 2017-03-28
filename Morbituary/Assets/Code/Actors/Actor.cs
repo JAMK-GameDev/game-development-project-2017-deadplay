@@ -17,19 +17,23 @@ namespace Assets.Code.Actors
 	{
 		// Fields
 		public double facingDegree;
+        protected int health;
 
 		// Properties
 		public double MovementSpeed { get; set; }
-		public int Health { get; set; }
 		public ActorType Type { get; set; }
 		public ActorStatus Status { get; set; }
 		public List<A> Attacks { get; set; }
+        public int Health
+        {
+            get { return health; }
+        }
 
-		/// <summary>
-		/// Returns the facing direction of the actor in degrees.
-		/// Only values between 0 and 360 can be assigned to this.
-		/// </summary>
-		public double FacingDegree
+        /// <summary>
+        /// Returns the facing direction of the actor in degrees.
+        /// Only values between 0 and 360 can be assigned to this.
+        /// </summary>
+        public double FacingDegree
 		{
 			get { return facingDegree; }
 			set
@@ -57,5 +61,20 @@ namespace Assets.Code.Actors
 		{
 
 		}
-	}
+
+        public void receiveDamage(IAttack attack)
+        {
+            OnDamaged(attack);
+            health -= attack.Damage;
+
+            if(Health <= 0)
+            {
+                OnDeath();
+            }
+
+        }
+
+        protected abstract void OnDeath();
+        protected virtual void OnDamaged(IAttack attack) { }
+    }
 }
