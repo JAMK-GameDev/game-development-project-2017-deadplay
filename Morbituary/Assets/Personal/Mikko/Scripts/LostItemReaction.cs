@@ -1,4 +1,4 @@
-public class LostItemReaction : DelayedReaction
+public class LostItemReaction : Inventory
 {
     public Item item;
 
@@ -6,13 +6,13 @@ public class LostItemReaction : DelayedReaction
     //private Inventory inventory;
 
 
-    protected override void SpecificInit()
+  //  protected override void SpecificInit()
     {
         //inventory = FindObjectOfType<Inventory> ();
     }
 
 
-    protected override void ImmediateReaction()
+ //   protected override void ImmediateReaction()
     {
         //inventory.RemoveItem (item);
     }

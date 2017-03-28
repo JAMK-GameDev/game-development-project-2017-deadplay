@@ -1,4 +1,5 @@
-﻿public class PickedUpItemReaction : DelayedReaction
+﻿public class PickedUpItemReaction : Inventory
 {
     public Item item;
 
+}
