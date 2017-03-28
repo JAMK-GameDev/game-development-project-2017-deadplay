@@ -26,6 +26,8 @@ namespace Assets.Code.Items
 			Collider.center = new Vector3(Range / 2, 0, 0);
 			var player = Player.GetPlayer();
 
+
+            var key = new Key();
 		}
 
 		public virtual void Attack(bool isInRange, Actor<IAttack> target)
