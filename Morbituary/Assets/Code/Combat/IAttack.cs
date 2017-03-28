@@ -8,7 +8,7 @@ namespace Assets.Code.Combat
 {
     public interface IAttack
     {
-        double Range { get; set; }
+		float Range { get; set; }
         int Damage { get; set; }
         // TODO: Attack frequency. We might want to use something like Unity.Time for this.
         // This requires some more research
