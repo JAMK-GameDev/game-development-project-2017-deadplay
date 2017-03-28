@@ -12,13 +12,13 @@ public class PickUpItem : MonoBehaviour {
     }
 
 
-    protected override void SpecificInit() //delayed reaction.cs original
+    protected void SpecificInit() //delayed reaction.cs original
     {
         //inventory = FindObjectOfType<Inventory>();
     }
 
 
-    protected override void ImmediateReaction()//delayed reaction.cs original
+    protected void ImmediateReaction()//delayed reaction.cs original
     {
         //inventory.AddItem(item);
     }

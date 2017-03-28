@@ -1,8 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-using Assets.Code.Combat;
 using Assets.Code.Items;
 using Assets.Code.Actors;
 
@@ -95,9 +92,7 @@ public class attackTest : MonoBehaviour
 
 			//Debug.Log ("hit pressed");
 			// class Weapon Attack() method
-			wp.Attack(enemyInRange, target);
+			// wp.Attack(enemyInRange, target);
 		}
-
 	}
-
 }

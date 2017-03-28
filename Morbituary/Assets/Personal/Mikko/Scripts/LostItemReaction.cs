@@ -6,14 +6,14 @@ public class LostItemReaction : Inventory
     //private Inventory inventory;
 
 
-  //  protected override void SpecificInit()
-    {
-        //inventory = FindObjectOfType<Inventory> ();
-    }
+    //  protected override void SpecificInit()
+    //{
+    //inventory = FindObjectOfType<Inventory> ();
+    //}
 
 
- //   protected override void ImmediateReaction()
-    {
-        //inventory.RemoveItem (item);
-    }
+    //   protected override void ImmediateReaction()
+    //{
+    //inventory.RemoveItem (item);
+    //}
 }
