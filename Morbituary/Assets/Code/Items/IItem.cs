@@ -10,6 +10,6 @@ namespace Assets.Code.Items
     /// </summary>
     public interface IItem : IDropable
     {
-        string Name { get; set; }
+        string Name { get; }
     }
 }

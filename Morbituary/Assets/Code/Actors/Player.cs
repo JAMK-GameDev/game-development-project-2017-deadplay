@@ -18,6 +18,12 @@ namespace Assets.Code.Actors
 
 		}
 
+        protected override void OnDeath()
+        {
+            Debug.Log("You Died..");
+            // TODO
+        }
+
 		public static GameObject GetPlayer()
 		{
 			return GameObject.FindGameObjectWithTag("Player");
