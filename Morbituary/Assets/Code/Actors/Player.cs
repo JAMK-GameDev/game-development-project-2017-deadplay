@@ -4,8 +4,12 @@ using UnityEngine;
 
 namespace Assets.Code.Actors
 {
-	public class Player : Actor<Weapon>
-	{
+    public class Player : Actor<Weapon>
+    {
+        public readonly static Inventory Inventory = new Inventory();
+        
+
+
 		// Use this for initialization
 		void Start()
 		{

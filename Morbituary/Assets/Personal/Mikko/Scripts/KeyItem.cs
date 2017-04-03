@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿using Assets.Code.Actors;
+using Assets.Code.Items;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,8 +10,8 @@ public class KeyItem : MonoBehaviour {
     {
         if (collider.gameObject.name == "Player")
         {
-            GameVariables.key += 1;
-            Debug.Log(GameVariables.key);
+            var inventory = Player.Inventory;
+            inventory.AddKey();
             Destroy(gameObject);
         }
     }
