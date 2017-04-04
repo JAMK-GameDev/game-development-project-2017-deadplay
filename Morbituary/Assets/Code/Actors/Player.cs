@@ -7,7 +7,6 @@ namespace Assets.Code.Actors
     public class Player : Actor<Weapon>
     {
         public readonly static Inventory Inventory = new Inventory();
-        
 
 
 		// Use this for initialization

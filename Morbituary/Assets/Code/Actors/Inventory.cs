@@ -6,14 +6,33 @@ using System.Text;
 
 namespace Assets.Code.Actors
 {
-    class Inventory
+    public class Inventory
     {
-        private List<IItem> Items { get; set; }
+        public List<IItem> items;
+        private int keyCount;
 
-        bool hasKey()
+        public bool HasKey
         {
-            return Items.Any(item => item.Name == "Key");
+            get { return keyCount > 0; }
         }
+
+        public void AddKey()
+        {
+            keyCount++;
+        }
+
+        public bool UseKey()
+        {
+            if (HasKey)
+            {
+                keyCount--;
+                return true;
+            }
+
+            return false;
+        }
+
+
 
     }
 }
