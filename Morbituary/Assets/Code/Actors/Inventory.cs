@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using UnityEngine;
+using UnityEngine.UI;
 
 namespace Assets.Code.Actors
 {
@@ -14,6 +16,11 @@ namespace Assets.Code.Actors
         public bool HasKey
         {
             get { return keyCount > 0; }
+        }
+
+        public int GetKeyCount()
+        {
+            return keyCount;
         }
 
         public void AddKey()
@@ -31,8 +38,6 @@ namespace Assets.Code.Actors
 
             return false;
         }
-
-
-
+        
     }
 }
