@@ -6,6 +6,8 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 
+using System.Collections;
+
 namespace Assets.Code.Actors
 {
 	class Enemy : Actor<IAttack>
@@ -17,7 +19,6 @@ namespace Assets.Code.Actors
         bool playerInRange;
         
         GameObject PlayerGameObject;
-        GameObject EnemyGameOnject;
         Player target;
         Player Player;
         Enemy Enem;
@@ -28,10 +29,12 @@ namespace Assets.Code.Actors
 
             // Get enemies to array
             enemiesArray = GameObject.FindGameObjectsWithTag("Enemy");
+            // TODO: How to implement this?
             foreach (GameObject enemy in enemiesArray)
             {
                 Enem = ToEnemy(enemy);
                 Enem.Damage = 3;
+                Enem.health = UnityEngine.Random.Range(50, 120);
             }
 
             Player Player = Player.ToPlayer(Player.GetPlayer());
@@ -55,8 +58,7 @@ namespace Assets.Code.Actors
             {
                 Attack(target);
             }
-
-
+            
         }
 
         void OnTriggerEnter(Collider other)

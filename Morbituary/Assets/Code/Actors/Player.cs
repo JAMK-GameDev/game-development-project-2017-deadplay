@@ -1,6 +1,8 @@
-﻿using Assets.Code.Items;
+﻿using Assets.Code.Combat;
+using Assets.Code.Items;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 namespace Assets.Code.Actors
 {
@@ -31,5 +33,21 @@ namespace Assets.Code.Actors
 		{
 			return GameObject.FindGameObjectWithTag("Player");
 		}
-	}
+
+        public static Player ToPlayer(GameObject gameObject)
+        {
+            return gameObject.GetComponentInParent<Player>();
+        }
+
+        internal void receiveDamage(int damage)
+        {
+            Debug.Log("Player receiving damage: " + damage + ", Health is: " + health);
+            health -= damage;
+
+            if (Health <= 0)
+            {
+                OnDeath();
+            }
+        }
+    }
 }
