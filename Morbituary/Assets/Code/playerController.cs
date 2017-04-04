@@ -18,9 +18,15 @@ public class playerController : MonoBehaviour
     private float lastAttack;
     Enemy target;
     Enemy enem;
+    Image Slot1Image;
+    Image Slot2Image;
 
 	void Awake()
 	{
+        // Get UI slot images (red borders ATM)
+        Slot1Image = GameObject.FindGameObjectWithTag("ActiveSlot1").GetComponent<Image>();
+        Slot2Image = GameObject.FindGameObjectWithTag("ActiveSlot2").GetComponent<Image>();
+
         // Get weapon object references from scene
         W1 = GameObject.FindGameObjectWithTag("Weapon1");
         W2 = GameObject.FindGameObjectWithTag("Weapon2");
@@ -31,6 +37,9 @@ public class playerController : MonoBehaviour
 	{
         W1.gameObject.SetActive(true);
         W2.gameObject.SetActive(true);
+
+        Slot1Image.gameObject.SetActive(true);
+        Slot2Image.gameObject.SetActive(true);
     }
 
     void SetWeaponStats(string targetGameObject, string name, int dmg, float range, float freq)
@@ -99,7 +108,9 @@ public class playerController : MonoBehaviour
             Debug.Log("1 pressed");
 
             resetWeapons();
+            resetInventoryActiveSlot();
             W1.SetActive(true);
+            Slot1Image.gameObject.SetActive(true);
 
             SetWeaponStats("Weapon1", "Dagger", 10, 2.1f, 0.4f);
         }
@@ -108,7 +119,9 @@ public class playerController : MonoBehaviour
             Debug.Log("2 pressed");
 
             resetWeapons();
+            resetInventoryActiveSlot();
             W2.SetActive(true);
+            Slot2Image.gameObject.SetActive(true);
 
             SetWeaponStats("Weapon2", "Longsword", 33, 4.3f, 2.4f);
         }
@@ -118,5 +131,11 @@ public class playerController : MonoBehaviour
     {
         W1.gameObject.SetActive(false);
         W2.gameObject.SetActive(false);
+    }
+
+    void resetInventoryActiveSlot()
+    {
+        Slot1Image.gameObject.SetActive(false);
+        Slot2Image.gameObject.SetActive(false);
     }
 }
