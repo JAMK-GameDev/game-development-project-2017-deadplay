@@ -9,7 +9,7 @@ namespace Assets.Code.Actors
     public class Player : Actor<Weapon>
     {
         public readonly static Inventory Inventory = new Inventory();
-
+		protected bool invincible;
 
 		// Use this for initialization
 		void Start()
@@ -41,13 +41,24 @@ namespace Assets.Code.Actors
 
         internal void receiveDamage(int damage)
         {
-            Debug.Log("Player receiving damage: " + damage + ", Health is: " + health);
-            health -= damage;
+			// Prevents too fast deaths
+			if (!invincible)
+			{
+				invincible = true;
+				Debug.Log("Player receiving damage: " + damage + ", Health is: " + health);
+				health -= damage;
 
-            if (Health <= 0)
-            {
-                OnDeath();
-            }
-        }
-    }
+				if (Health <= 0)
+				{
+					OnDeath();
+				}
+				Invoke("resetInvulnerability", 2);
+        	}
+    	}
+
+		void resetInvulnerability()
+		{
+			invincible = false;
+		}
+	}
 }

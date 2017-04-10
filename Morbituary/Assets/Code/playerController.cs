@@ -42,10 +42,10 @@ public class playerController : MonoBehaviour
         Slot2Image.gameObject.SetActive(true);
     }
 
-    void SetWeaponStats(string targetGameObject, string name, int dmg, float range, float freq)
+    void SetWeaponStats(string targetGameObject, string weaponName, int dmg, float range, float freq)
     {
         
-        wp.Name = name;
+        wp.Name = weaponName;
         wp.Damage = dmg;
         wp.Range = range;
         wp.Frequency = freq;
