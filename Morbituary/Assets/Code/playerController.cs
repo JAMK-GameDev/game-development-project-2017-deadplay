@@ -9,6 +9,7 @@ using UnityEngine.UI;
 
 public class playerController : MonoBehaviour
 {
+    GameObject PlayerGameObject;
     Weapon wp = new Weapon();
     GameObject W1, W2;
     GameObject CurrentWeapon;
@@ -23,7 +24,7 @@ public class playerController : MonoBehaviour
 
 	void Awake()
 	{
-        // Get UI slot images (red borders ATM)
+        // Get UI slot images (Checkmark ATM)
         Slot1Image = GameObject.FindGameObjectWithTag("ActiveSlot1").GetComponent<Image>();
         Slot2Image = GameObject.FindGameObjectWithTag("ActiveSlot2").GetComponent<Image>();
 
@@ -40,6 +41,10 @@ public class playerController : MonoBehaviour
 
         Slot1Image.gameObject.SetActive(true);
         Slot2Image.gameObject.SetActive(true);
+
+        Player Player = Player.ToPlayer(Player.GetPlayer());
+        PlayerGameObject = GameObject.FindGameObjectWithTag("Player");
+    
     }
 
     void SetWeaponStats(string targetGameObject, string weaponName, int dmg, float range, float freq)
@@ -63,9 +68,10 @@ public class playerController : MonoBehaviour
 	// Set states if in range
 	void OnTriggerEnter(Collider other)
 	{
-        Debug.Log("on trigger enter");
+        //Debug.Log("on trigger enter");
 		if (other.GetComponent<Collider>().tag == "Enemy")
 		{
+            Debug.Log("target set");
 			target = Enemy.ToEnemy(other.gameObject);
 		}
 		
@@ -73,9 +79,10 @@ public class playerController : MonoBehaviour
 
 	void OnTriggerExit(Collider other)
 	{
-        Debug.Log("on trigger exit");
+        //Debug.Log("on trigger exit");
         if (other.GetComponent<Collider>().tag == "Enemy")
         {
+            Debug.Log("target null");
 			target = null;
         }
 		
@@ -98,6 +105,7 @@ public class playerController : MonoBehaviour
         {
             canHit = false;
             Debug.Log("Blocking");
+
         } else {
             //released 
             canHit = true;

@@ -7,10 +7,12 @@ using System.Text;
 using UnityEngine;
 
 using System.Collections;
+using UnityEngine.AI;
 
 namespace Assets.Code.Actors
 {
-	class Enemy : Actor<IAttack>
+    [RequireComponent(typeof(NavMeshAgent))]
+    class Enemy : Actor<IAttack>
 	// Use this for initialization
 	{
         public int Damage { get; set; }
@@ -26,7 +28,7 @@ namespace Assets.Code.Actors
 
         void Awake()
         {
-
+        
             // Get enemies to array
             enemiesArray = GameObject.FindGameObjectsWithTag("Enemy");
             // TODO: How to implement this?
@@ -44,11 +46,15 @@ namespace Assets.Code.Actors
         void Start()
 		{
 
-            
+
+        }
+        protected override void UpdateAnimation(ActorStatus status)
+        {
+            // TODO
         }
 
-		// Update is called once per frame
-		void Update()
+        // Update is called once per frame
+        void Update()
 		{
 
             // Add the time since Update was last called to the timer.
@@ -58,7 +64,9 @@ namespace Assets.Code.Actors
             {
                 Attack(target);
             }
-            
+
+            // GetComponent<NavMeshAgent>().destination = Player.GetPlayer().transform.position; // TODO add NavMesh to maps
+
         }
 
         void OnTriggerEnter(Collider other)

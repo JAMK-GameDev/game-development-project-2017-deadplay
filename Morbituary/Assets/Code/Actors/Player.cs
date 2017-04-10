@@ -3,6 +3,7 @@ using Assets.Code.Items;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using Assets.Code.Actors.Enums;
 
 namespace Assets.Code.Actors
 {
@@ -14,14 +15,25 @@ namespace Assets.Code.Actors
 		// Use this for initialization
 		void Start()
 		{
-
 		}
 
 		// Update is called once per frame
 		void Update()
 		{
+            if (Status != ActorStatus.Dead)
+            {
+                if (Input.GetMouseButton(1))
+                {
+                    Status = ActorStatus.Blocking;
+                }
+                base.Update();
+            }
+        }
 
-		}
+        protected override void UpdateAnimation(ActorStatus status)
+        {
+            // TODO
+        }
 
         protected override void OnDeath()
         {
@@ -42,7 +54,7 @@ namespace Assets.Code.Actors
         internal void receiveDamage(int damage)
         {
 			// Prevents too fast deaths
-			if (!invincible)
+			if (!invincible && Status != Enums.ActorStatus.Blocking)
 			{
 				invincible = true;
 				Debug.Log("Player receiving damage: " + damage + ", Health is: " + health);

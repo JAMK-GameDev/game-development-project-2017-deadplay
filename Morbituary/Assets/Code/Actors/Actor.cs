@@ -57,10 +57,17 @@ namespace Assets.Code.Actors
 		}
 
 		// Update is called once per frame
-		void Update()
+		protected void Update()
 		{
+            if (false) Status = ActorStatus.Attacking; // TODO
+            else if (false) Status = ActorStatus.Walking; // TODO
+            else if (health <= 0) Status = ActorStatus.Dead;
+            else Status = ActorStatus.Idle;
 
+            UpdateAnimation(Status);
 		}
+
+        protected abstract void UpdateAnimation(ActorStatus status);
 
         public void receiveDamage(IAttack attack)
         {
