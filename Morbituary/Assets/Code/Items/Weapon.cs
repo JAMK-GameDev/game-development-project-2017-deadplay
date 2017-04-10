@@ -17,6 +17,7 @@ namespace Assets.Code.Items
         public BoxCollider Collider { get; set; }
         public int Damage { get; set; }
         public float Range { get; set; }
+		public float Frequency { get; set; }
         public string Name { get; set; }
 
         public virtual void init()
