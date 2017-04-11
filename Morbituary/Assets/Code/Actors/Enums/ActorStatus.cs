@@ -11,6 +11,6 @@ namespace Assets.Code.Actors.Enums
     /// </summary>
     public enum ActorStatus
     {
-        Idle, Walking, Attacking, Dead
+        Idle, Walking, Attacking, Dead, Blocking
     }
 }

@@ -7,10 +7,12 @@ using System.Text;
 using UnityEngine;
 
 using System.Collections;
+using UnityEngine.AI;
 
 namespace Assets.Code.Actors
 {
-	class Enemy : Actor<IAttack>
+    [RequireComponent(typeof(NavMeshAgent))]
+    class Enemy : Actor<IAttack>
 	// Use this for initialization
 	{
         public int Damage { get; set; }
@@ -26,14 +28,14 @@ namespace Assets.Code.Actors
 
         void Awake()
         {
-
+        
             // Get enemies to array
             enemiesArray = GameObject.FindGameObjectsWithTag("Enemy");
             // TODO: How to implement this?
             foreach (GameObject enemy in enemiesArray)
             {
                 Enem = ToEnemy(enemy);
-                Enem.Damage = 3;
+                Enem.Damage = 13;
                 Enem.health = UnityEngine.Random.Range(50, 120);
             }
 
@@ -44,11 +46,15 @@ namespace Assets.Code.Actors
         void Start()
 		{
 
-            
+
+        }
+        protected override void UpdateAnimation(ActorStatus status)
+        {
+            // TODO
         }
 
-		// Update is called once per frame
-		void Update()
+        // Update is called once per frame
+        void Update()
 		{
 
             // Add the time since Update was last called to the timer.
@@ -58,7 +64,10 @@ namespace Assets.Code.Actors
             {
                 Attack(target);
             }
-            
+
+            // Enemies follow player
+            GetComponent<NavMeshAgent>().destination = Player.GetPlayer().transform.position;
+
         }
 
         void OnTriggerEnter(Collider other)
@@ -86,7 +95,7 @@ namespace Assets.Code.Actors
 
         protected void Attack(Player target)
         {
-            Debug.Log("Enemy Attack() here, target: " + target);
+            //Debug.Log("Enemy Attack() here, target: " + target);
             // Reset the timer.
             timer = 0f;
             // Deal damage
