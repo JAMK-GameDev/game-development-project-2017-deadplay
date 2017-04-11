@@ -42,8 +42,10 @@ public class playerController : MonoBehaviour
         Slot1Image.gameObject.SetActive(true);
         Slot2Image.gameObject.SetActive(true);
 
+        // Initialize player
         Player Player = Player.ToPlayer(Player.GetPlayer());
         PlayerGameObject = GameObject.FindGameObjectWithTag("Player");
+        Player.Health = 100;
     
     }
 
@@ -71,7 +73,7 @@ public class playerController : MonoBehaviour
         //Debug.Log("on trigger enter");
 		if (other.GetComponent<Collider>().tag == "Enemy")
 		{
-            Debug.Log("target set");
+            //Debug.Log("target set");
 			target = Enemy.ToEnemy(other.gameObject);
 		}
 		
@@ -82,7 +84,7 @@ public class playerController : MonoBehaviour
         //Debug.Log("on trigger exit");
         if (other.GetComponent<Collider>().tag == "Enemy")
         {
-            Debug.Log("target null");
+            //Debug.Log("target null");
 			target = null;
         }
 		

@@ -27,6 +27,7 @@ namespace Assets.Code.Actors
         public int Health
         {
             get { return health; }
+            set { health = value;  }
         }
 
         /// <summary>

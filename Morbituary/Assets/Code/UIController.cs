@@ -16,8 +16,8 @@ public class UIController : MonoBehaviour {
     {
         int keycount = Assets.Code.Actors.Player.Inventory.GetKeyCount();
         if (keycount != 0)
-            keyCountText.text = "Keys: " + keycount.ToString();
+            keyCountText.text = keycount.ToString();
         else
-            keyCountText.text = "No keys..";
+            keyCountText.text = "0";
     }
 }
