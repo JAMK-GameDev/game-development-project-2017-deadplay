@@ -106,7 +106,7 @@ public class playerController : MonoBehaviour
         if (Input.GetMouseButton(1))
         {
             canHit = false;
-            Debug.Log("Blocking");
+            // Debug.Log("Blocking");
 
         } else {
             //released 

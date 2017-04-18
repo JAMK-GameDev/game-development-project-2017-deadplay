@@ -19,7 +19,18 @@ namespace Assets.Code.Actors
 		public double facingDegree;
         protected int health;
 
-		// Properties
+        // Properties
+        public ActorDirection Direction;
+        public bool LooksUp { get { return Direction == ActorDirection.Up; } }
+        public bool LooksDown { get { return Direction == ActorDirection.Down; } }
+        public bool LooksRight { get { return Direction == ActorDirection.Right; } }
+        public bool LooksLeft { get { return Direction == ActorDirection.Left; } }
+
+        public abstract bool IsAttacking { get; }
+        public virtual bool IsBlocking { get { return false; } }
+        public bool IsDead { get { return health <= 0; } }
+
+        public bool IsMoving { get { return MovementSpeed > 0.1f; } }
 		public double MovementSpeed { get; set; }
 		public ActorType Type { get; set; }
 		public ActorStatus Status { get; set; }
@@ -45,7 +56,7 @@ namespace Assets.Code.Actors
 			}
 		}
 
-		public ActorDirection ActorDirection
+		private  ActorDirection ActorDirection
 		{
 			get { return ActorDirection.ParseDegrees(FacingDegree); }
 			set { FacingDegree = value.GetDegrees(); }
@@ -54,17 +65,12 @@ namespace Assets.Code.Actors
 		// Use this for initialization
 		void Start()
 		{
-
-		}
+            Direction = ActorDirection.Down;
+        }
 
 		// Update is called once per frame
 		protected void Update()
-		{
-            if (false) Status = ActorStatus.Attacking; // TODO
-            else if (false) Status = ActorStatus.Walking; // TODO
-            else if (health <= 0) Status = ActorStatus.Dead;
-            else Status = ActorStatus.Idle;
-
+        {
             UpdateAnimation(Status);
 		}
 
