@@ -66,8 +66,10 @@ namespace Assets.Code.Actors
             animator.SetBool("isAttacking", IsAttacking);
             animator.SetBool("isMoving", IsMoving);
 
-            if (IsDead) { animator.SetTrigger("isDead"); }
-            Debug.Log("Is Attacking? " + IsAttacking + ", IsBlocking? " + IsBlocking);
+            if (IsDead && !hasDied) { // hasDied is necessary, so it is only triggered once
+                animator.SetTrigger("isDead");
+                hasDied = true;
+            }
         }
 
         protected override void OnDeath()

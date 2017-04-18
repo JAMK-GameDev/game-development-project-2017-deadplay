@@ -18,6 +18,7 @@ namespace Assets.Code.Actors
 		// Fields
 		public double facingDegree;
         protected int health;
+        protected bool hasDied = false;
 
         // Properties
         public ActorDirection Direction;
