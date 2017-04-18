@@ -16,6 +16,9 @@ namespace Assets.Code.Actors
 	// Use this for initialization
 	{
         public int Damage { get; set; }
+
+        public override bool IsAttacking { get { return false; } }
+
         public float timeBetweenAttacks = 0.5f;
         float timer;
         bool playerInRange;

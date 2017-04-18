@@ -15,24 +15,42 @@ namespace Assets.Code.Actors
         public Slider healthSlider;
         public float refillSpeed;
         public bool refilling;
+        public override bool IsAttacking { get { return Input.GetMouseButton(0); } }
+        public override bool IsBlocking { get { return !IsAttacking && Input.GetMouseButton(1); } }
 
-		// Use this for initialization
-		void Start()
+        // Use this for initialization
+        void Start()
 		{
             // TODO do we need to specify which slider?
             healthSlider = GameObject.FindGameObjectWithTag("healthSlider").GetComponent<Slider>();
             refillSpeed = 0.01f;
 		}
 
+        private void UpdateDirection()
+        {
+            if (Input.GetKey(KeyCode.D)) Direction = ActorDirection.Right;
+            else if (Input.GetKey(KeyCode.W)) Direction = ActorDirection.Up;
+            else if (Input.GetKey(KeyCode.A)) Direction = ActorDirection.Left;
+            else if (Input.GetKey(KeyCode.S)) Direction = ActorDirection.Down;
+        }
+
+        private void UpdateStatus()
+        {
+
+
+            if (health <= 0) Status = ActorStatus.Dead;
+            else if (IsAttacking) Status = ActorStatus.Attacking;
+            else if (IsBlocking) Status = ActorStatus.Blocking;
+            else if (IsMoving) Status = ActorStatus.Walking;
+            else Status = ActorStatus.Idle;
+        }
 		// Update is called once per frame
 		void Update()
 		{
+            UpdateStatus();
+            UpdateDirection();
             if (Status != ActorStatus.Dead)
             {
-                if (Input.GetMouseButton(1))
-                {
-                    Status = ActorStatus.Blocking;
-                }
                 base.Update();
 
                 // Draw healt orb based on health
@@ -44,7 +62,12 @@ namespace Assets.Code.Actors
 
         protected override void UpdateAnimation(ActorStatus status)
         {
-            // TODO
+            var animator = GetComponentInChildren<Animator>();
+            animator.SetBool("isAttacking", IsAttacking);
+            animator.SetBool("isMoving", IsMoving);
+
+            if (IsDead) { animator.SetTrigger("isDead"); }
+            Debug.Log("Is Attacking? " + IsAttacking + ", IsBlocking? " + IsBlocking);
         }
 
         protected override void OnDeath()
