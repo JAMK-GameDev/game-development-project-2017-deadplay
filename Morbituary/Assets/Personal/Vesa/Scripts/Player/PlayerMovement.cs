@@ -5,6 +5,10 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour {
 
     public float speed = 5f;
+    public GameObject rightSide;
+    public GameObject frontSide;
+    public GameObject leftSide;
+    public GameObject backSide;
 
     Vector3 movement;
     Rigidbody playerRigidbody;
@@ -12,17 +16,24 @@ public class PlayerMovement : MonoBehaviour {
     public Transform Player;
     public Ray ray;
 
+    bool isMoving;
+    Animator anim;
+
     void Awake()
     {
         playerRigidbody = GetComponent<Rigidbody>();
+        anim = GetComponentInChildren<Animator>();
     }
 
     void FixedUpdate()
     {
+        isMoving = false;
+        anim.SetBool("isMoving", isMoving);
         float h = Input.GetAxisRaw("Horizontal");
         float v = Input.GetAxisRaw("Vertical");
-        //Move(h, v); //initial version
-        MoveTowardMouse();
+        Move(h, v); //initial version
+        Animate(h, v);
+        //MoveTowardMouse();
     }
 
     void Move(float h, float v)
@@ -53,4 +64,48 @@ public class PlayerMovement : MonoBehaviour {
             transform.rotation = targetRotation;
         }
     }
+
+    void Animate(float h, float v)
+    {
+        if (Input.GetKey(KeyCode.D))
+        {
+            isMoving = true;
+            anim.SetBool("isMoving", isMoving);
+            frontSide.SetActive(false);
+            rightSide.SetActive(true);
+            backSide.SetActive(false);
+            leftSide.SetActive(false);
+        }
+        if (Input.GetKey(KeyCode.W))
+        {
+            isMoving = true;
+            anim.SetBool("isMoving", isMoving);
+            frontSide.SetActive(false);
+            rightSide.SetActive(false);
+            backSide.SetActive(true);
+            leftSide.SetActive(false);
+            
+        }
+        if (Input.GetKey(KeyCode.A))
+        {
+            isMoving = true;
+            anim.SetBool("isMoving", isMoving);
+            frontSide.SetActive(false);
+            rightSide.SetActive(false);
+            backSide.SetActive(false);
+            leftSide.SetActive(true);
+        }
+        if (Input.GetKey(KeyCode.S))
+        {
+            isMoving = true;
+            anim.SetBool("isMoving", isMoving);
+            frontSide.SetActive(true);
+            rightSide.SetActive(false);
+            backSide.SetActive(false);
+            leftSide.SetActive(false);
+            
+        }
+
+    }
+
 }
