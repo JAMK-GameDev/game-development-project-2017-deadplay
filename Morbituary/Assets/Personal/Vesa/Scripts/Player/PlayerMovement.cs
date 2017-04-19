@@ -36,16 +36,19 @@ public class PlayerMovement : MonoBehaviour {
 
     void FixedUpdate()
     {
-        // anim.SetBool("isMoving", isMoving);
-        float hSpeed = Input.GetAxisRaw("Horizontal") * speed;
-        float vSpeed = Input.GetAxisRaw("Vertical") * speed;
+        if (!Player.IsDead)
+        {
+            // anim.SetBool("isMoving", isMoving);
+            float hSpeed = Input.GetAxisRaw("Horizontal") * speed;
+            float vSpeed = Input.GetAxisRaw("Vertical") * speed;
 
-        Player.MovementSpeed = Mathf.Max(Mathf.Abs(hSpeed), Mathf.Abs(vSpeed));
+            Player.MovementSpeed = Mathf.Max(Mathf.Abs(hSpeed), Mathf.Abs(vSpeed));
 
-        Move(hSpeed, vSpeed); //initial version
-		ChangeSpeed();
-        Animate(hSpeed, vSpeed);
-        //MoveTowardMouse();
+            Move(hSpeed, vSpeed); //initial version
+            ChangeSpeed();
+            Animate(hSpeed, vSpeed);
+            //MoveTowardMouse();
+        }
     }
 
     void Move(float h, float v)

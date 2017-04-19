@@ -27,12 +27,16 @@ namespace Assets.Code.Actors
 
         private void UpdateDirection()
         {
-            if (Input.GetKey(KeyCode.W)) Direction = ActorDirection.Up;
-            else if (Input.GetKey(KeyCode.D)) Direction = ActorDirection.Right;
-            else if (Input.GetKey(KeyCode.A)) Direction = ActorDirection.Left;
-            else if (Input.GetKey(KeyCode.S)) Direction = ActorDirection.Down;
+            if (!IsDead)
+            {
+                if (Input.GetKey(KeyCode.W)) Direction = ActorDirection.Up;
+                else if (Input.GetKey(KeyCode.D)) Direction = ActorDirection.Right;
+                else if (Input.GetKey(KeyCode.A)) Direction = ActorDirection.Left;
+                else if (Input.GetKey(KeyCode.S)) Direction = ActorDirection.Down;
 
-            if (Input.GetKey(KeyCode.X)) receiveDamage(100);
+                // Debug Only
+                if (Input.GetKey(KeyCode.X)) receiveDamage(100);
+            }
 
         }
 
@@ -47,17 +51,18 @@ namespace Assets.Code.Actors
 		// Update is called once per frame
 		void Update()
 		{
-            UpdateStatus();
-            UpdateDirection();
-            if (Status != ActorStatus.Dead)
+            if (!IsDead)
             {
-                base.Update();
+                UpdateStatus();
+                UpdateDirection();
+                if (Status != ActorStatus.Dead)
+                {
+                    base.Update();
 
-                // Draw healt orb based on health
-                generateHealth();
-
+                    // Draw healt orb based on health
+                    generateHealth();
+                }
             }
-
         }
 
         protected override void UpdateAnimation(ActorStatus status)
@@ -72,13 +77,12 @@ namespace Assets.Code.Actors
             Debug.Log("You Died..");
             Status = ActorStatus.Dead;
 
-            if (IsDead && !hasDied)
+            if (!hasDied)
             { // hasDied is necessary, so it is only triggered once
                 var animator = GetComponentInChildren<Animator>();
                 animator.SetTrigger("isDead");
                 hasDied = true;
             }
-            // TODO add animation
         }
 
 		public static GameObject GetPlayer()
@@ -93,23 +97,26 @@ namespace Assets.Code.Actors
 
         internal void receiveDamage(int damage)
         {
-            Debug.Log("Receive damg");
-			// Prevents too fast deaths, allows blocking
-			if (!invincible && Status != Enums.ActorStatus.Blocking)
+            if (!IsDead)
             {
-				invincible = true;
-				Debug.Log("Player receiving damage: " + damage + ", Health is: " + health);
-				health -= damage;
+                Debug.Log("Receive damg");
+                // Prevents too fast deaths, allows blocking
+                if (!invincible && Status != Enums.ActorStatus.Blocking)
+                {
+                    invincible = true;
+                    Debug.Log("Player receiving damage: " + damage + ", Health is: " + health);
+                    health -= damage;
 
-                // Reduce slider
-                healthSlider.value = healthSlider.value - (damage * 0.01f);
+                    // Reduce slider
+                    healthSlider.value = healthSlider.value - (damage * 0.01f);
 
-                if (Health <= 0)
-				{
-					OnDeath();
-				}
-				Invoke("resetInvulnerability", 2);
-        	}
+                    if (Health <= 0)
+                    {
+                        OnDeath();
+                    }
+                    Invoke("resetInvulnerability", 2);
+                }
+            }
     	}
 
 		void resetInvulnerability()
@@ -119,15 +126,13 @@ namespace Assets.Code.Actors
 
         void generateHealth()
         {
-            
             if (healthSlider.value < 1)
             {
                 // Draw orb and generate health until slider is full and health is 100
                 healthSlider.value = healthSlider.value < 1 ? healthSlider.value + (refillSpeed * Time.deltaTime) : healthSlider.value;
                 Health =  Mathf.FloorToInt(healthSlider.value * 100f);
 				Debug.Log("generateHealth, healthsliderValue: " + healthSlider.value + " Healt: " + Health);
-            }  
-            
+            }
         }
 	}
 }
