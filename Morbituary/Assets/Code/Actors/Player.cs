@@ -99,12 +99,10 @@ namespace Assets.Code.Actors
         {
             if (!IsDead)
             {
-                Debug.Log("Receive damg");
                 // Prevents too fast deaths, allows blocking
                 if (!invincible && Status != Enums.ActorStatus.Blocking)
                 {
                     invincible = true;
-                    Debug.Log("Player receiving damage: " + damage + ", Health is: " + health);
                     health -= damage;
 
                     // Reduce slider
@@ -131,7 +129,6 @@ namespace Assets.Code.Actors
                 // Draw orb and generate health until slider is full and health is 100
                 healthSlider.value = healthSlider.value < 1 ? healthSlider.value + (refillSpeed * Time.deltaTime) : healthSlider.value;
                 Health =  Mathf.FloorToInt(healthSlider.value * 100f);
-				Debug.Log("generateHealth, healthsliderValue: " + healthSlider.value + " Healt: " + Health);
             }
         }
 	}

@@ -19,6 +19,6 @@ public class UIPopupText : MonoBehaviour {
 
     public void SetText(string text)
     {
-        dmgText.text = text;
+        animator.GetComponent<Text>().text = text;
     }
 }
