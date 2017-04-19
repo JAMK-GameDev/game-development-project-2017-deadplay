@@ -59,7 +59,6 @@ namespace Assets.Code.Actors
         // Update is called once per frame
         void Update()
 		{
-
             // Add the time since Update was last called to the timer.
             timer += Time.deltaTime;
 
@@ -75,8 +74,9 @@ namespace Assets.Code.Actors
 
         void OnTriggerEnter(Collider other)
         {
+        
             // If the entering collider is the player...
-            if (other.gameObject == PlayerGameObject)
+            if (other.gameObject == PlayerGameObject) //does not work
             {
                 // ... the player is in range.
                 playerInRange = true;

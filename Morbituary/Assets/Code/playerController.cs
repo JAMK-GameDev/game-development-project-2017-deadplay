@@ -6,6 +6,7 @@ using Assets.Code.Combat;
 using Assets.Code.Items;
 using Assets.Code.Actors;
 using UnityEngine.UI;
+using Assets.Code.Actors.Enums;
 
 public class playerController : MonoBehaviour
 {
@@ -22,7 +23,7 @@ public class playerController : MonoBehaviour
     Image Slot1Image;
     Image Slot2Image;
 
-	void Awake()
+    void Awake()
 	{
         // Get UI slot images (Checkmark ATM)
         Slot1Image = GameObject.FindGameObjectWithTag("ActiveSlot1").GetComponent<Image>();
@@ -46,7 +47,6 @@ public class playerController : MonoBehaviour
         Player Player = Player.ToPlayer(Player.GetPlayer());
         PlayerGameObject = GameObject.FindGameObjectWithTag("Player");
         Player.Health = 100;
-    
     }
 
     void SetWeaponStats(string targetGameObject, string weaponName, int dmg, float range, float freq)

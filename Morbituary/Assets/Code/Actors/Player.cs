@@ -88,9 +88,10 @@ namespace Assets.Code.Actors
 
         internal void receiveDamage(int damage)
         {
+            Debug.Log("Receive damg");
 			// Prevents too fast deaths, allows blocking
 			if (!invincible && Status != Enums.ActorStatus.Blocking)
-			{
+            {
 				invincible = true;
 				Debug.Log("Player receiving damage: " + damage + ", Health is: " + health);
 				health -= damage;
