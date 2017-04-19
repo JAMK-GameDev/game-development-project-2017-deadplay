@@ -8,7 +8,7 @@ public class UIPopupText : MonoBehaviour {
     public Animator animator;
     private Text dmgText;
 
-    void Start()
+    void OnEnable()
     {
         AnimatorClipInfo[] clipInfo = animator.GetCurrentAnimatorClipInfo(0);
         // Destroy popup text when anim ends
@@ -19,6 +19,7 @@ public class UIPopupText : MonoBehaviour {
 
     public void SetText(string text)
     {
-        animator.GetComponent<Text>().text = text;
+        Debug.Log("SetText");
+        dmgText.text = text;
     }
 }
