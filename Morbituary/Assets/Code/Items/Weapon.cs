@@ -31,10 +31,6 @@ namespace Assets.Code.Items
         public void DealDamage(Actor<IAttack> target)
         {
             if (target == null) throw new ArgumentNullException();
-
-            Debug.Log("DealDamage() here, target is: " + target);
-            Debug.Log("Range is: " + Range);
-            Debug.Log("Dmg is: " + Damage);
             // dealing the damage of the weapon itself
             target.receiveDamage(this);
         }

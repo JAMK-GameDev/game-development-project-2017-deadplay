@@ -12,7 +12,7 @@ public class playerController : MonoBehaviour
 {
     GameObject PlayerGameObject;
     Weapon wp = new Weapon();
-    GameObject W1, W2;
+    GameObject W1, W2, W3;
     GameObject CurrentWeapon;
     BoxCollider bx;
 	bool enemyInRange;
@@ -20,28 +20,28 @@ public class playerController : MonoBehaviour
     private float lastAttack;
     Enemy target;
     Enemy enem;
-    Image Slot1Image;
-    Image Slot2Image;
+    Image Slot1Image, Slot2Image, Slot3Image;
 
     void Awake()
 	{
-        // Get UI slot images (Checkmark ATM)
+        // Get UI slot images
         Slot1Image = GameObject.FindGameObjectWithTag("ActiveSlot1").GetComponent<Image>();
         Slot2Image = GameObject.FindGameObjectWithTag("ActiveSlot2").GetComponent<Image>();
+        Slot3Image = GameObject.FindGameObjectWithTag("ActiveSlot3").GetComponent<Image>();
 
         // Get weapon object references from scene
         W1 = GameObject.FindGameObjectWithTag("Weapon1");
         W2 = GameObject.FindGameObjectWithTag("Weapon2");
-	}
+        W3 = GameObject.FindGameObjectWithTag("Weapon3");
+    }
 
 	// Use this for initialization
 	void Start()
 	{
-        W1.gameObject.SetActive(true);
-        W2.gameObject.SetActive(true);
-
+        resetWeapons();
+        resetInventoryActiveSlot();
+        W1.SetActive(true);
         Slot1Image.gameObject.SetActive(true);
-        Slot2Image.gameObject.SetActive(true);
 
         // Initialize player
         Player Player = Player.ToPlayer(Player.GetPlayer());
@@ -62,7 +62,7 @@ public class playerController : MonoBehaviour
         if (boxCollider != null)
         {
             boxCollider.size = new Vector3(range, 1.0f, range);
-            boxCollider.center = new Vector3(2.0f, 0f, 0f);
+            boxCollider.center = new Vector3(0f, 0f, 0f);
         }
         
     }
@@ -135,17 +135,30 @@ public class playerController : MonoBehaviour
 
             SetWeaponStats("Weapon2", "Longsword", 33, 4.3f, 2.4f);
         }
+        if (Input.GetKeyDown("3"))
+        {
+            Debug.Log("3 pressed");
+
+            resetWeapons();
+            resetInventoryActiveSlot();
+            W3.SetActive(true);
+            Slot3Image.gameObject.SetActive(true);
+
+            SetWeaponStats("Weapon3", "Kayrapaska", 90, 5.3f, 3.1f);
+        }
     }
 
     void resetWeapons()
     {
         W1.gameObject.SetActive(false);
         W2.gameObject.SetActive(false);
+        W3.gameObject.SetActive(false);
     }
 
     void resetInventoryActiveSlot()
     {
         Slot1Image.gameObject.SetActive(false);
         Slot2Image.gameObject.SetActive(false);
+        Slot3Image.gameObject.SetActive(false);
     }
 }

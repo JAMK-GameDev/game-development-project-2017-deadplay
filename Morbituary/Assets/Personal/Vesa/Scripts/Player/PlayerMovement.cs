@@ -19,6 +19,7 @@ public class PlayerMovement : MonoBehaviour {
     private Rigidbody playerRigidbody;
     // private Animator anim;
     private Player Player;
+    ArrayList weapons = new ArrayList();
 
     void Awake()
     {
@@ -33,7 +34,15 @@ public class PlayerMovement : MonoBehaviour {
 
         Player = Player.ToPlayer(Player.GetPlayer());
         playerRigidbody = GetComponent<Rigidbody>();
+
+        GameObject wp1 = GameObject.Find("Weapon1");
+        GameObject wp2 = GameObject.Find("Weapon2");
+        GameObject wp3 = GameObject.Find("Weapon3");
         
+        weapons.Add(wp1);
+        weapons.Add(wp2);
+        weapons.Add(wp3);
+
     }
 
     void FixedUpdate()
@@ -49,7 +58,47 @@ public class PlayerMovement : MonoBehaviour {
             Move(hSpeed, vSpeed); //initial version
             ChangeSpeed();
             Animate(hSpeed, vSpeed);
+            ChangeWeaponDirection();
             //MoveTowardMouse();
+        }
+    }
+
+    void ChangeWeaponDirection()
+    {
+        // Change weapon direction
+        // TODO: add other weapons too
+        
+
+        foreach (GameObject wp in weapons)
+        {
+            if (Player.LooksDown)
+            {
+                Transform playerTransform = Player.GetComponent<Transform>();
+                Vector3 newPos = transform.position;
+                Vector3 offset = new Vector3(-2.0f, 0f, -2f);
+                wp.transform.position = newPos + offset;
+            }
+            if (Player.LooksUp)
+            {
+                Transform playerTransform = Player.GetComponent<Transform>();
+                Vector3 newPos = transform.position;
+                Vector3 offset = new Vector3(-2.0f, 0f, 2f);
+                wp.transform.position = newPos + offset;
+            }
+            if (Player.LooksLeft)
+            {
+                Transform playerTransform = Player.GetComponent<Transform>();
+                Vector3 newPos = transform.position;
+                Vector3 offset = new Vector3(-4.0f, 0f, 0f);
+                wp.transform.position = newPos + offset;
+            }
+            if (Player.LooksRight)
+            {
+                Transform playerTransform = Player.GetComponent<Transform>();
+                Vector3 newPos = transform.position;
+                Vector3 offset = new Vector3(0.0f, 0f, 0f);
+                wp.transform.position = newPos + offset;
+            }
         }
     }
 
