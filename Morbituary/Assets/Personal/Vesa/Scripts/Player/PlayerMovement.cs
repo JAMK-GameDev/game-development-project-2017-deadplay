@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour {
 
-    public float speed = 5f;
+    public float speed = 6.0f;
     public GameObject rightSide;
     public GameObject frontSide;
     public GameObject leftSide;
@@ -41,6 +41,7 @@ public class PlayerMovement : MonoBehaviour {
         Player.MovementSpeed = Mathf.Max(Mathf.Abs(hSpeed), Mathf.Abs(vSpeed));
 
         Move(hSpeed, vSpeed); //initial version
+		ChangeSpeed();
         Animate(hSpeed, vSpeed);
         //MoveTowardMouse();
     }
@@ -53,6 +54,18 @@ public class PlayerMovement : MonoBehaviour {
         playerRigidbody.MovePosition(transform.position + movement);
         
     }
+
+	void ChangeSpeed()
+	{ 
+		if (Input.GetKey("left shift"))
+		{
+			speed = 6.0f;
+		}
+		else
+		{
+			speed = 4.0f;
+		}
+	}
 
     void MoveTowardMouse()
     {

@@ -21,7 +21,6 @@ namespace Assets.Code.Actors
         // Use this for initialization
         void Start()
 		{
-            // TODO do we need to specify which slider?
             healthSlider = GameObject.FindGameObjectWithTag("healthSlider").GetComponent<Slider>();
             refillSpeed = 0.01f;
 		}
@@ -36,8 +35,6 @@ namespace Assets.Code.Actors
 
         private void UpdateStatus()
         {
-
-
             if (health <= 0) Status = ActorStatus.Dead;
             else if (IsAttacking) Status = ActorStatus.Attacking;
             else if (IsBlocking) Status = ActorStatus.Blocking;
@@ -66,8 +63,10 @@ namespace Assets.Code.Actors
             animator.SetBool("isAttacking", IsAttacking);
             animator.SetBool("isMoving", IsMoving);
 
-            if (IsDead) { animator.SetTrigger("isDead"); }
-            Debug.Log("Is Attacking? " + IsAttacking + ", IsBlocking? " + IsBlocking);
+            if (IsDead && !hasDied) { // hasDied is necessary, so it is only triggered once
+                animator.SetTrigger("isDead");
+                hasDied = true;
+            }
         }
 
         protected override void OnDeath()
@@ -89,7 +88,7 @@ namespace Assets.Code.Actors
 
         internal void receiveDamage(int damage)
         {
-			// Prevents too fast deaths
+			// Prevents too fast deaths, allows blocking
 			if (!invincible && Status != Enums.ActorStatus.Blocking)
 			{
 				invincible = true;
@@ -120,6 +119,7 @@ namespace Assets.Code.Actors
                 // Draw orb and generate health until slider is full and health is 100
                 healthSlider.value = healthSlider.value < 1 ? healthSlider.value + (refillSpeed * Time.deltaTime) : healthSlider.value;
                 Health =  Mathf.FloorToInt(healthSlider.value * 100f);
+				Debug.Log("generateHealth, healthsliderValue: " + healthSlider.value + " Healt: " + Health);
             }  
             
         }
