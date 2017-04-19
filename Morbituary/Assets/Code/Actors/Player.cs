@@ -130,10 +130,7 @@ namespace Assets.Code.Actors
                 // Draw orb and generate health until slider is full and health is 100
                 healthSlider.value = healthSlider.value < 1 ? healthSlider.value + (refillSpeed * Time.deltaTime) : healthSlider.value;
                 Health =  Mathf.FloorToInt(healthSlider.value * 100f);
-<<<<<<< HEAD
 				// Debug.Log("generateHealth, healthsliderValue: " + healthSlider.value + " Healt: " + Health);
-=======
->>>>>>> 014f9eae8754d26564581768273ab5740ba77b47
             }
         }
 	}

@@ -48,7 +48,7 @@ namespace Assets.Code.Actors.Controller
             {
                 // Debug.Log("Enemy pos: {" + position.x + ", " + position.y + ", " + position.z + " }");
                 speed = (float) Math.Sqrt((Math.Abs(position.x) + Math.Abs(position.z)));
-                Debug.Log("Enemy speed: " + speed);
+                // Debug.Log("Enemy speed: " + speed);
             }
 
             prevPosition = position;
