@@ -1,6 +1,5 @@
 ﻿using Assets.Code.Actors.Enums;
 using Assets.Code.Combat;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,30 +7,41 @@ using UnityEngine;
 
 using System.Collections;
 using UnityEngine.AI;
+using Assets.Code.Actors.Controller;
 
 namespace Assets.Code.Actors
 {
     [RequireComponent(typeof(NavMeshAgent))]
-    class Enemy : Actor<IAttack>
-	// Use this for initialization
-	{
+    public class Enemy : Actor<IAttack>
+    // Use this for initialization
+    {
+        private bool isAttacking;
         public int Damage { get; set; }
 
-        public override bool IsAttacking { get { return false; } }
+        public override bool IsAttacking { get { return isAttacking; } }
 
         public float timeBetweenAttacks = 0.5f;
-        float timer;
-        bool playerInRange;
-        
-        GameObject PlayerGameObject;
-        Player target;
-        Player Player;
-        Enemy Enem;
-        GameObject[] enemiesArray;
+        public float timer;
+        public bool playerInRange;
+
+        private GameObject PlayerGameObject;
+        private Player target;
+        private Player Player;
+        private Enemy Enem;
+        private GameObject[] enemiesArray;
+        // Animations
+
+        public GameObject RightSide;
+        public GameObject FrontSide;
+        public GameObject LeftSide;
+        public GameObject BackSide;
+        private EnemyMovementController movementController;
 
         void Awake()
         {
-        
+            movementController = new EnemyMovementController(this);
+
+            if (RightSide == null || FrontSide == null || LeftSide == null || BackSide == null) throw new System.Exception("Not all Character Rigs have been initialized in Player");
             // Get enemies to array
             enemiesArray = GameObject.FindGameObjectsWithTag("Enemy");
             // TODO: How to implement this?
@@ -39,7 +49,7 @@ namespace Assets.Code.Actors
             {
                 Enem = ToEnemy(enemy);
                 Enem.Damage = 13;
-                Enem.health = UnityEngine.Random.Range(50, 120);
+                Enem.health = Random.Range(50, 120);
             }
 
             Player Player = Player.ToPlayer(Player.GetPlayer());
@@ -49,27 +59,38 @@ namespace Assets.Code.Actors
         void Start()
 		{
 
-
         }
+
         protected override void UpdateAnimation(ActorStatus status)
         {
-            // TODO
+            var animator = GetComponentInChildren<Animator>();
+            animator.SetBool("isMoving", IsMoving);
+            animator.SetBool("isAttacking", IsAttacking);
+
+            var childTrans = GetComponentInChildren<Transform>();
+            childTrans.transform.eulerAngles = new Vector3(-transform.eulerAngles.x, -transform.eulerAngles.x, -transform.eulerAngles.z);
         }
 
         // Update is called once per frame
-        void Update()
-		{
+        protected void Update()
+        {
+            // Update Movement
+            movementController.Animate();
+            // Update Direction
+            Direction = ActorDirectionMethods.ParseDegrees(transform.eulerAngles.y);
+
             // Add the time since Update was last called to the timer.
             timer += Time.deltaTime;
 
             if (timer >= timeBetweenAttacks && playerInRange)
             {
                 Attack(target);
+                isAttacking = true;
             }
+            else { isAttacking = true; }
 
             // Enemies follow player
             GetComponent<NavMeshAgent>().destination = Player.GetPlayer().transform.position;
-
         }
 
         void OnTriggerEnter(Collider other)
@@ -110,8 +131,7 @@ namespace Assets.Code.Actors
             Status = ActorStatus.Dead;
             Debug.Log(this + " is now dead");
             // TODO: this should be replaced by death animation
-            Destroy(this.gameObject);
-
+            Destroy(gameObject);
         }
 
 		public static Enemy ToEnemy(GameObject gameObject)

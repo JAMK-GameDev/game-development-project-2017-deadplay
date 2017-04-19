@@ -22,6 +22,8 @@ public class PlayerMovement : MonoBehaviour {
 
     void Awake()
     {
+        if (rightSide == null || frontSide == null || leftSide == null || backSide == null) throw new System.Exception("Not all Character Rigs have been initialized in Player");
+
         // Set all Character rigs to false. 
         // They need to be enabled on game startupm, otherwise unity has issues with activating them.
         rightSide.SetActive(false);
@@ -129,8 +131,5 @@ public class PlayerMovement : MonoBehaviour {
             backSide.SetActive(false);
             leftSide.SetActive(false);
         }
-
-        frontSide.GetComponent<Animator>();
-
     }
 }

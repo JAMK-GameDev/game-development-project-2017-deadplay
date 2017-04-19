@@ -16,7 +16,11 @@ namespace Assets.Code.Actors
 	public abstract class Actor<A> : MonoBehaviour where A : IAttack
 	{
 		// Fields
-		public double facingDegree;
+		private float facingDegree
+        {
+            get { return transform.eulerAngles.y; }
+            set { transform.eulerAngles = new Vector3(transform.eulerAngles.x, value, transform.eulerAngles.z); }
+        }
         protected int health;
         protected bool hasDied = false;
 
@@ -46,21 +50,21 @@ namespace Assets.Code.Actors
         /// Returns the facing direction of the actor in degrees.
         /// Only values between 0 and 360 can be assigned to this.
         /// </summary>
-        public double FacingDegree
+        public float FacingDegree
 		{
 			get { return facingDegree; }
 			set
 			{
 				// Perform check, so only ever valid values are assigned as facing degrees. This are values between 0 and 360
-				if (!ActorDirection.IsValidDegree(value)) throw new ArgumentException(value + " is not a valid degree. It must be between 0 and 360!");
+				if (!ActorDirectionMethods.IsValidDegree(value)) throw new ArgumentException(value + " is not a valid degree. It must be between 0 and 360!");
 				facingDegree = value;
 			}
 		}
 
 		private  ActorDirection ActorDirection
 		{
-			get { return ActorDirection.ParseDegrees(FacingDegree); }
-			set { FacingDegree = value.GetDegrees(); }
+			get { return ActorDirectionMethods.ParseDegrees(FacingDegree); }
+			set { FacingDegree = ActorDirectionMethods.GetDegrees(value); }
 		}
 
 		// Use this for initialization

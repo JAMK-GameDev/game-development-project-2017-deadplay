@@ -15,10 +15,10 @@ namespace Assets.Code.Actors.Enums
     /// </summary>
     public static class ActorDirectionMethods
     {
-        public const double UP_DEGREES = 0;
-        public const double RIGHT_DEGREES = 90;
-        public const double DOWN_DEGREES = 180;
-        public const double LEFT_DEGREES = 270;
+        public const float UP_DEGREES = 0;
+        public const float RIGHT_DEGREES = 90;
+        public const float DOWN_DEGREES = 180;
+        public const float LEFT_DEGREES = 270;
 
         /// <summary>
         //  Perform check, so only ever valid values are assigned as facing degrees.
@@ -27,12 +27,12 @@ namespace Assets.Code.Actors.Enums
         /// <param name="direction"></param>
         /// <param name="value"></param>
         /// <returns>true if this is a valid value for a degree</returns>
-        public static bool IsValidDegree(this ActorDirection direction, double value)
+        public static bool IsValidDegree(double value)
         {
             return (value >= 0 && value <= 360);
         }
 
-        public static ActorDirection ParseDegrees(this ActorDirection self, double degrees)
+        public static ActorDirection ParseDegrees(double degrees)
         {
             ActorDirection direction;
 
@@ -45,9 +45,9 @@ namespace Assets.Code.Actors.Enums
             return direction;
         }
 
-        public static double GetDegrees(this ActorDirection direction)
+        public static float GetDegrees(ActorDirection direction)
         {
-            double degree;
+            float degree;
             switch (direction)
             {
                 case ActorDirection.Up:
@@ -67,19 +67,19 @@ namespace Assets.Code.Actors.Enums
             return degree;
         }
 
-        public static double UpDegrees(this ActorDirection direction)
+        public static double UpDegrees(ActorDirection direction)
         {
             return UP_DEGREES;
         }
-        public static double RightDegrees(this ActorDirection direction)
+        public static double RightDegrees(ActorDirection direction)
         {
             return RIGHT_DEGREES;
         }
-        public static double DownDegrees(this ActorDirection direction)
+        public static double DownDegrees(ActorDirection direction)
         {
             return DOWN_DEGREES;
         }
-        public static double LeftDegrees(this ActorDirection direction)
+        public static double LeftDegrees(ActorDirection direction)
         {
             return LEFT_DEGREES;
         }
