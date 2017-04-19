@@ -27,10 +27,13 @@ namespace Assets.Code.Actors
 
         private void UpdateDirection()
         {
-            if (Input.GetKey(KeyCode.D)) Direction = ActorDirection.Right;
-            else if (Input.GetKey(KeyCode.W)) Direction = ActorDirection.Up;
+            if (Input.GetKey(KeyCode.W)) Direction = ActorDirection.Up;
+            else if (Input.GetKey(KeyCode.D)) Direction = ActorDirection.Right;
             else if (Input.GetKey(KeyCode.A)) Direction = ActorDirection.Left;
             else if (Input.GetKey(KeyCode.S)) Direction = ActorDirection.Down;
+
+            if (Input.GetKey(KeyCode.X)) receiveDamage(100);
+
         }
 
         private void UpdateStatus()
@@ -62,17 +65,19 @@ namespace Assets.Code.Actors
             var animator = GetComponentInChildren<Animator>();
             animator.SetBool("isAttacking", IsAttacking);
             animator.SetBool("isMoving", IsMoving);
-
-            if (IsDead && !hasDied) { // hasDied is necessary, so it is only triggered once
-                animator.SetTrigger("isDead");
-                hasDied = true;
-            }
         }
 
         protected override void OnDeath()
         {
             Debug.Log("You Died..");
             Status = ActorStatus.Dead;
+
+            if (IsDead && !hasDied)
+            { // hasDied is necessary, so it is only triggered once
+                var animator = GetComponentInChildren<Animator>();
+                animator.SetTrigger("isDead");
+                hasDied = true;
+            }
             // TODO add animation
         }
 

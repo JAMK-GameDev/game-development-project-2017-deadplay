@@ -22,6 +22,8 @@ public class PlayerMovement : MonoBehaviour {
 
     void Awake()
     {
+        // Set all Character rigs to false. 
+        // They need to be enabled on game startupm, otherwise unity has issues with activating them.
         rightSide.SetActive(false);
         frontSide.SetActive(false);
         leftSide.SetActive(false);
