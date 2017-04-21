@@ -98,13 +98,16 @@ namespace Assets.Code.Actors
         {
             if (!IsDead)
             {
-                Debug.Log("Receive damg");
+				if (Status == ActorStatus.Blocking)
+					UIPopupTextController.CreatePopupText("Block!", transform);
+				
                 // Prevents too fast deaths, allows blocking
                 if (!invincible && Status != ActorStatus.Blocking)
                 {
                     invincible = true;
-                    Debug.Log("Player receiving damage: " + damage + ", Health is: " + health);
                     health -= damage;
+					// Draw poptext
+					UIPopupTextController.CreatePopupText(damage.ToString(), transform);
 
                     // Reduce slider
                     healthSlider.value = healthSlider.value - (damage * 0.01f);

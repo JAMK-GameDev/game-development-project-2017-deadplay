@@ -6,6 +6,11 @@ using UnityEngine.UI;
 public class UIController : MonoBehaviour {
 
     public Text keyCountText;
+
+	void Start()
+	{
+		UIPopupTextController.Initialize();
+	}
 	
 	// Update is called once per frame
 	void Update () {

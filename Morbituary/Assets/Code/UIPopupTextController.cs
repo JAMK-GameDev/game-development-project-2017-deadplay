@@ -11,19 +11,18 @@ public class UIPopupTextController : MonoBehaviour {
     public static void Initialize()
     {
 
-        canvas = GameObject.Find("UICanvas");
-        popupText = Resources.Load<UIPopupText>("Prefabs/PopupTextParent");
+		canvas = GameObject.Find("Canvas");
+		if (!popupText)
+			popupText = Resources.Load<UIPopupText>("Prefabs/PopUpTextContainer");
     }
 
     public static void CreatePopupText(string text, Transform location)
     {
-        // TODO: Now working atm, link to tutorial followed found here: https://www.youtube.com/watch?v=fbUOG7f3jq8
         UIPopupText instance = Instantiate(popupText);
-        Vector2 screenPosition = Camera.main.WorldToScreenPoint(new Vector2(location.position.x + Random.Range(-0.5f, .5f), location.position.y + Random.Range(-0.5f, .5f)));
-        // Accsess properties
+		Vector2 screenPosition = Camera.main.WorldToScreenPoint(location.position);
         instance.transform.SetParent(canvas.transform, false);
         instance.transform.position = screenPosition;
-        instance.SetText(text);
+		instance.SetText(text);
     }
 
 

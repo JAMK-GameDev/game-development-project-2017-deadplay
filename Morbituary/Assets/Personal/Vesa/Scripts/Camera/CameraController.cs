@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
+	public Rigidbody rb;
     public Transform target;
     public float smoothing = 5f;
 
@@ -18,6 +19,9 @@ public class CameraController : MonoBehaviour
 
     void Start()
     {
+
+		rb = GetComponent<Rigidbody>();
+
         offset = transform.position - target.position;
         // Calculate maximum and minimum distance
         cameraDistanceMax = transform.position.y + 50f;
@@ -33,6 +37,9 @@ public class CameraController : MonoBehaviour
         cameraDistance += Input.GetAxis("Mouse ScrollWheel") * cameraScrollSpeed;
         cameraDistance = Mathf.Clamp(cameraDistance, cameraDistanceMin, cameraDistanceMax);
         cameraZoomPos = new Vector3(transform.position.x, cameraDistance, transform.position.z);
-        transform.position = Vector3.Lerp(transform.position, cameraZoomPos, Time.deltaTime);
+
+		transform.position = Vector3.Lerp(transform.position, cameraZoomPos, Time.deltaTime);
+		rb.MovePosition(transform.position);
+        //transform.position = Vector3.Lerp(transform.position, cameraZoomPos, Time.deltaTime);
     }
 }

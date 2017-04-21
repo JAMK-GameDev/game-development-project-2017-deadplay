@@ -83,10 +83,11 @@ namespace Assets.Code.Actors
 
         public void receiveDamage(IAttack attack)
         {
-            // Add popup text on damage
-            UIPopupTextController.CreatePopupText(attack.Damage.ToString(), transform);
             OnDamaged(attack);
             health -= attack.Damage;
+			// Add popup text on damage
+			Debug.Log(attack.Damage.ToString());
+			UIPopupTextController.CreatePopupText(attack.Damage.ToString(), transform);
 
             if(Health <= 0)
             {
