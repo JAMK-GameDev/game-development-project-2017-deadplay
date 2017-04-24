@@ -92,7 +92,7 @@ namespace Assets.Code.Actors
             if(Health <= 0)
             {
                 // Add popup on death
-                UIPopupTextController.CreatePopupText(":(", transform);
+                UIPopupTextController.CreatePopupText(":(", transform); // <- could have also been solved with OnDeath...
                 OnDeath();
             }
 
