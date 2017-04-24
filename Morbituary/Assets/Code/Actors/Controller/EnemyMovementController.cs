@@ -56,8 +56,17 @@ namespace Assets.Code.Actors.Controller
             return speed;
         }
 
+        private void AdjustDirection()
+        {
+            var subObjects = Enemy.GetComponentsInChildren<Transform>().ToList();
+            var subTransform = subObjects.First(obj => obj.name == "Slime");
+
+            subTransform.eulerAngles = new Vector3(-90, -180, 0);
+        }
+
         public void Animate()
         {
+            AdjustDirection();
             // Update Speed
             Enemy.MovementSpeed = GetMovementSpeed();
             ResetCharacterRigs();
