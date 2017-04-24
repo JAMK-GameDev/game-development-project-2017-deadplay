@@ -76,7 +76,6 @@ public class PlayerMovement : MonoBehaviour {
                 Transform playerTransform = Player.GetComponent<Transform>();
                 Vector3 newPos = transform.position;
                 Vector3 offset = new Vector3(-2.0f, 0f, -2f);
-				playerRigidbody.MovePosition(newPos + offset);
 				wp.transform.position = newPos + offset;
             }
             if (Player.LooksUp)
