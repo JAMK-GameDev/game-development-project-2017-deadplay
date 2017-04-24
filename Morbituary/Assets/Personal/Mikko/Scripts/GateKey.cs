@@ -5,23 +5,18 @@ using UnityEngine;
 
 public class GateKey : MonoBehaviour {
 
+
 	void OnTriggerEnter(Collider collider)
     {
-        Debug.Log("fucker");
-
-
         if (collider.gameObject.name == "Player" && Player.Inventory.UseKey())
         {
+            UIPopupTextController.CreatePopupText("Used a key, and opened the gate", transform);
             Destroy(gameObject);
         }
 
-        /*
-        if (collider.gameObject.name == "Player" && Inventory.key>0)
+        if (collider.gameObject.name == "Player" && !Player.Inventory.UseKey())
         {
-            Inventory.key--;
-            Destroy(gameObject);
-      // for destroying the gate? animation? gameObject.AddComponent<Rigidbody>();
+            UIPopupTextController.CreatePopupText("You need a key to open a gate", transform);
         }
-        */
     }
 }

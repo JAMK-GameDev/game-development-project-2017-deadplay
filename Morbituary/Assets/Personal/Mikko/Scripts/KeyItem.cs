@@ -10,6 +10,7 @@ public class KeyItem : MonoBehaviour {
     {
         if (collider.gameObject.name == "Player")
         {
+            UIPopupTextController.CreatePopupText("Key picked up", transform);
             var inventory = Player.Inventory;
             inventory.AddKey();
             Destroy(gameObject);
