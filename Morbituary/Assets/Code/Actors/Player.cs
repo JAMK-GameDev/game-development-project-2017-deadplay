@@ -5,6 +5,7 @@ using UnityEngine;
 using System;
 using Assets.Code.Actors.Enums;
 using UnityEngine.UI;
+using Assets.Code.Actors.Controller;
 
 namespace Assets.Code.Actors
 {
@@ -116,6 +117,10 @@ namespace Assets.Code.Actors
 
                     if (Health <= 0)
                     {
+                        // Play death sound
+                        var controller = WeaponSoundController.Instance;
+                        controller.PlayGameOver();
+                        Destroy(GameObject.FindGameObjectWithTag("MainMusic"));
                         OnDeath();
                     }
                     Invoke("resetInvulnerability", 2);

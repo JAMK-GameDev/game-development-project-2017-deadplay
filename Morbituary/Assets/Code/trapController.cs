@@ -11,7 +11,7 @@ public class trapController : MonoBehaviour {
 
     void OnTriggerEnter(Collider other)
     {
-        if (!isTriggered)
+        if (!isTriggered && other.tag == "Player")
         {
             // Spawn enemies once, remove collider and light, show text
             UIPopupTextController.CreatePopupText("Whoa, enemies!", transform);

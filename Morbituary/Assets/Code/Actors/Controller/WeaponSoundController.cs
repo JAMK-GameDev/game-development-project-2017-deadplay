@@ -17,6 +17,7 @@ namespace Assets.Code.Actors.Controller
         public AudioClip Weapon1Slash;
         public AudioClip Weapon2Slash;
         public AudioClip Weapon3Slash;
+        public AudioClip GameOver;
         public static WeaponSoundController Instance
         {
             get
@@ -32,6 +33,12 @@ namespace Assets.Code.Actors.Controller
 
 
         public void PlayWeaponSound(AudioClip sound)
+        {
+            source.PlayOneShot(sound);
+            source.Play();
+        }
+
+        public void PlayGameOverSound(AudioClip sound)
         {
             source.PlayOneShot(sound);
             source.Play();
@@ -62,6 +69,10 @@ namespace Assets.Code.Actors.Controller
         public void PlayWeapon3Slash()
         {
             PlayWeaponSound(Weapon3Slash);
+        }
+        public void PlayGameOver()
+        {
+            PlayGameOverSound(GameOver);
         }
     }
 }
