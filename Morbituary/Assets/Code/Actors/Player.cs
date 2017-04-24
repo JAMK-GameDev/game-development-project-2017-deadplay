@@ -15,12 +15,14 @@ namespace Assets.Code.Actors
         public Slider healthSlider;
         public float refillSpeed;
         public bool refilling;
-        public override bool IsAttacking { get { return Input.GetMouseButton(0); } }
+        public override bool IsAttacking { get { return Input.GetMouseButtonDown(0); } }
         public override bool IsBlocking { get { return !IsAttacking && Input.GetMouseButton(1); } }
+        public int EquippedWeaponNumber;
 
         // Use this for initialization
         void Start()
 		{
+            EquippedWeaponNumber = 1;
             healthSlider = GameObject.FindGameObjectWithTag("healthSlider").GetComponent<Slider>();
             refillSpeed = 0.01f;
 		}

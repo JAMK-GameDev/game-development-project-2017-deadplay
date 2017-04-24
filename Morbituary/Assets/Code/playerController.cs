@@ -7,6 +7,7 @@ using Assets.Code.Items;
 using Assets.Code.Actors;
 using UnityEngine.UI;
 using Assets.Code.Actors.Enums;
+using Assets.Code.Actors.Controller;
 
 public class playerController : MonoBehaviour
 {
@@ -21,9 +22,10 @@ public class playerController : MonoBehaviour
     Enemy target;
     Enemy enem;
     Image Slot1Image, Slot2Image, Slot3Image;
+    private Player Player {  get { return Player.ToPlayer(Player.GetPlayer()); } }
 
     void Awake()
-	{
+    {
         // Get UI slot images
         Slot1Image = GameObject.FindGameObjectWithTag("ActiveSlot1").GetComponent<Image>();
         Slot2Image = GameObject.FindGameObjectWithTag("ActiveSlot2").GetComponent<Image>();
@@ -113,14 +115,17 @@ public class playerController : MonoBehaviour
             canHit = true;
         }
 
+        var controller = WeaponSoundController.Instance;
         if (Input.GetKeyDown("1"))
         {
             Debug.Log("1 pressed");
 
+            Player.EquippedWeaponNumber = 1;
             resetWeapons();
             resetInventoryActiveSlot();
             W1.SetActive(true);
             Slot1Image.gameObject.SetActive(true);
+            controller.PlayWeapon1Sound();
 
             SetWeaponStats("Weapon1", "Dagger", 10, 2.1f, 0.4f);
         }
@@ -128,10 +133,12 @@ public class playerController : MonoBehaviour
         {
             Debug.Log("2 pressed");
 
+            Player.EquippedWeaponNumber = 2;
             resetWeapons();
             resetInventoryActiveSlot();
             W2.SetActive(true);
             Slot2Image.gameObject.SetActive(true);
+            controller.PlayWeapon2Sound();
 
             SetWeaponStats("Weapon2", "Longsword", 33, 4.3f, 2.4f);
         }
@@ -139,14 +146,31 @@ public class playerController : MonoBehaviour
         {
             Debug.Log("3 pressed");
 
+            Player.EquippedWeaponNumber = 3;
             resetWeapons();
             resetInventoryActiveSlot();
             W3.SetActive(true);
             Slot3Image.gameObject.SetActive(true);
+            controller.PlayWeapon3Sound();
 
             SetWeaponStats("Weapon3", "Kayrapaska", 90, 5.3f, 3.1f);
         }
+        if (Player.IsAttacking)
+        {
+            PlayerSlashSounds();
+        }
     }
+
+    private void PlayerSlashSounds()
+    {
+        int weaponNr = Player.EquippedWeaponNumber;
+        var controller = WeaponSoundController.Instance;
+
+        if (weaponNr == 1) controller.PlayWeapon1Slash();
+        else if (weaponNr == 2) controller.PlayWeapon2Slash();
+        else if (weaponNr == 3) controller.PlayWeapon3Slash();
+    }
+
 
     void resetWeapons()
     {
