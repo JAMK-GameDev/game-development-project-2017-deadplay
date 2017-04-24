@@ -78,6 +78,12 @@ namespace Assets.Code.Actors
             movementController.Animate();
             // Update Direction
             Direction = ActorDirectionMethods.ParseDegrees(transform.eulerAngles.y);
+            if (LooksLeft)
+            {
+                var scale = transform.localScale;
+                scale.x = -1;
+                transform.localScale = scale;
+            }
 
             // Add the time since Update was last called to the timer.
             timer += Time.deltaTime;
