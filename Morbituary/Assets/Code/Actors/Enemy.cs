@@ -56,14 +56,6 @@ namespace Assets.Code.Actors
             PlayerGameObject = GameObject.FindGameObjectWithTag("Player");
         }
 
-        private void AdjustDirection()
-        {
-            var subObjects = GetComponentsInChildren<Transform>().ToList();
-            var subTransform = subObjects.First(obj => obj.name == "Slime");
-
-            transform.eulerAngles = new Vector3(-90, -180, 0);
-        }
-
         void Start()
 		{
 
@@ -73,17 +65,16 @@ namespace Assets.Code.Actors
         {
             var animator = GetComponentInChildren<Animator>();
             animator.SetBool("isMoving", IsMoving);
-            animator.SetBool("isAttacking", IsAttacking); /*
+            animator.SetBool("isAttacking", IsAttacking);
 
             var childTrans = GetComponentInChildren<Transform>();
-            childTrans.transform.eulerAngles = new Vector3(-transform.eulerAngles.x, -transform.eulerAngles.x, -transform.eulerAngles.z); */
+            childTrans.transform.eulerAngles = new Vector3(-transform.eulerAngles.x, -transform.eulerAngles.x, -transform.eulerAngles.z);
         }
 
         // Update is called once per frame
         protected void Update()
         {
             // Update Movement
-            AdjustDirection();
             movementController.Animate();
             // Update Direction
             Direction = ActorDirectionMethods.ParseDegrees(transform.eulerAngles.y);
